@@ -1,0 +1,78 @@
+
+CREATE DATABASE library;
+USE library;
+CREATE TABLE lib (
+    b_id  VARCHAR (500) ,
+    b_name TEXT,
+    a_name TEXT,
+    p_name TEXT,
+    b_price INT,
+    i_name VARCHAR(100),
+    i_date DATE,
+    PRIMARY KEY(b_id)
+);
+
+CREATE TABLE student (
+    s_id VARCHAR(500),
+    b_id VARCHAR(500),
+    s_name VARCHAR(100),
+    s_address VARCHAR(100),
+    s_branch TEXT,
+    s_book TEXT,
+    s_rent DATE,
+    PRIMARY KEY(s_id),
+    FOREIGN KEY(b_id) REFERENCES lib(b_id) ON DELETE CASCADE
+);
+
+/* MICROWAVE ENGINEERING */
+INSERT INTO lib VALUES('B001', 'Microwave Devices and Circuit', 'Samuel Liao', 'Prentice Hall', 200, 'Manju', '2022-03-22');
+INSERT INTO lib VALUES('B002', 'Microwave Engineering', 'David Pozar', 'Wiley Publication', 399, 'Manju', '2022-06-03');
+INSERT INTO lib VALUES('B003', 'Radio Frequency and Microwave Electronics', 'Matthew M. Radmanesh', 'Pearson Eduction', 200, 'Manju', '2022-05-27');
+INSERT INTO lib VALUES('B004', 'Microwave Engineering', 'Annapurna Das and S. K Das', 'McGraw Hill Education', 599, 'Sarla', '2021-12-06');
+INSERT INTO lib VALUES('B005', 'Foundations of Microwave Engineering', 'Colin', 'Wiley Interscience', 450, 'Sarla', '2021-11-23');
+INSERT INTO lib VALUES('B006', 'Radio Frequency and Microwave Communication Circuits: Analysis and Design', 'Devandra Misra', 'John Wiley and Sons', 600, 'Sarla', '2022-01-04');
+
+/* MOBILE COMMUNICATION SYSTEM */
+INSERT INTO lib VALUES('B007', 'Wireless Communications: Principle and Practices', 'Theodore S. Rappaport', 'Pearson', 300, 'Manju', '2022-02-17');
+INSERT INTO lib VALUES('B008', 'Wireless Communications', 'T L Singal', 'McGraw Hill Education', 500, 'Manju', '2020-09-11');
+INSERT INTO lib VALUES('B009', 'Wireless Communications', 'Andreas F. Molisch', 'Wiley India PVT LTD', 299, 'Sarla', '2021-04-12');
+INSERT INTO lib VALUES('B010', 'Wireless and Mobile Communication','British Guy', 'Oxford University Press', 469, 'Sarla', '2019-06-01');
+INSERT INTO lib VALUES('B011', 'Wireless Communications and Networking','Morgan', 'Morgan-Kaufmann', 695, 'Sarla','2018-02-16');
+
+
+INSERT INTO student VALUES('S001', 'B004','AMMAR ANSARI', 'KALYAN', 'EXTC', 'Microwave Engineering', '2022-04-17');
+INSERT INTO student VALUES('S002', 'B006', 'KAVERI DHORE', 'GHANSOLI', 'EXTC', 'Radio Frequency and Microwave Communication Circuits', '2022-04-17');
+INSERT INTO student VALUES('S003', 'B011', 'HAIDER DAHODWALA', 'DOMBIVLI', 'EXTC', 'Wireless Communications and Networking', '2022-03-11');
+INSERT INTO student VALUES('S004', 'B008', 'NEHA GUPTA', 'PANVEL', 'EXTC', 'Wireless Communications', '2022-03-27');
+
+/* SELECTING ALL DATA */
+SELECT * FROM student;
+SELECT * FROM lib;
+
+/* JOINS */
+SELECT lib.b_id AS Book_ID, lib.b_name AS Book_Name, student.s_name AS Student_Name, student.s_id AS Student_ID, student.s_branch AS Branch, student.b_id Book_ID 
+FROM lib
+LEFT JOIN student 
+ON lib.b_id = student.b_id; 
+
+SELECT lib.b_id, lib.b_name, student.s_name, student.s_id, student.s_branch, student.b_id 
+FROM lib
+JOIN student 
+ON lib.b_id = student.b_id
+ORDER BY lib.b_id; 
+
+SELECT lib.b_id, lib.b_name, student.s_name, student.s_id, student.s_branch, student.b_id 
+FROM lib
+RIGHT JOIN student 
+ON lib.b_id = student.b_id; 
+
+/* WHERE */
+SELECT * FROM lib 
+WHERE i_date <= '2022-01-01';
+
+SELECT * FROM lib
+WHERE i_date >= '2022-01-01'
+ORDER BY i_date; 
+
+SELECT * FROM lib 
+WHERE i_date BETWEEN '2021-01-01' AND '2022-04-30';
